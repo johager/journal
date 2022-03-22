@@ -12,12 +12,15 @@ class JournalListViewController: UIViewController {
     // MARK: - Outlets
     
     @IBOutlet weak var journalTitleTextField: UITextField!
+    @IBOutlet weak var createJournalButton: UIButton!
     @IBOutlet weak var journalListTableView: UITableView!
     
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        journalTitleTextField.addTarget(self, action: #selector(checkJournalTitleTextField), for: .editingChanged)
+        createJournalButton.isEnabled = false
         journalListTableView.dataSource = self
         JournalController.shared.loadFromPersistentStore()
     }
@@ -29,10 +32,19 @@ class JournalListViewController: UIViewController {
     
     // MARK: - Actions
     
+    @objc func checkJournalTitleTextField(sender: UITextField) {
+        if let text = sender.text, !text.isEmpty {
+            createJournalButton.isEnabled = true
+        } else {
+            createJournalButton.isEnabled = false
+        }
+    }
+    
     @IBAction func createJournalButtonTapped(_ sender: UIButton) {
         guard let journalTitle = journalTitleTextField?.text, !journalTitle.isEmpty else { return }
         JournalController.shared.createJournal(title: journalTitle)
         journalTitleTextField.text = ""
+        journalTitleTextField.resignFirstResponder()
         journalListTableView.reloadData()
     }
     
@@ -49,6 +61,8 @@ class JournalListViewController: UIViewController {
         }
     }
 }
+
+// MARK: - UITableViewDataSource
 
 extension JournalListViewController: UITableViewDataSource {
     
@@ -70,5 +84,13 @@ extension JournalListViewController: UITableViewDataSource {
         }
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let journal = JournalController.shared.journals[indexPath.row]
+            JournalController.shared.delete(journal)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
     }
 }

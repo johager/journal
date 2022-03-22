@@ -13,6 +13,14 @@ class EntryListTableViewController: UITableViewController {
     
     var journal: Journal?
     
+    lazy var dateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .short
+        dateFormatter.doesRelativeDateFormatting = true
+        return dateFormatter
+    }()
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -21,6 +29,9 @@ class EntryListTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        if let journal = journal {
+            title = journal.title
+        }
         tableView.reloadData()
     }
 
@@ -37,11 +48,11 @@ class EntryListTableViewController: UITableViewController {
         
         let entry = journal.entries[indexPath.row]
         cell.textLabel?.text = entry.title
+        cell.detailTextLabel?.text = dateFormatter.string(from: entry.timestamp)
 
         return cell
     }
 
-    // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             guard let journal = journal else { return }

@@ -13,7 +13,7 @@ class JournalController {
     
     var journals = [Journal]()
     
-    private var storeURL: URL {
+    private var persistentStoreURL: URL {
         let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         let storeURL = urls[0].appendingPathComponent("Journal.json")
         return storeURL
@@ -23,6 +23,7 @@ class JournalController {
     
     func createJournal(title: String) {
         journals.append(Journal(title: title))
+        journals.sort(by: {$0.title < $1.title})
         saveToPersistentStore()
     }
     
@@ -35,6 +36,7 @@ class JournalController {
     func add(entry: Entry, to journal: Journal) {
         guard let journalIndex = journals.firstIndex(of: journal) else { return }
         journals[journalIndex].entries.append(entry)
+        sortJournal(journals[journalIndex])
         saveToPersistentStore()
     }
     
@@ -49,12 +51,18 @@ class JournalController {
         saveToPersistentStore()
     }
     
+    // MARK: - Misc Methods
+    
+    func sortJournal(_ journal: Journal) {
+        journal.entries.sort(by: {$0.title < $1.title})
+    }
+    
     // MARK: - Persist
     
     func saveToPersistentStore() {
         do {
             let data = try JSONEncoder().encode(journals)
-            try data.write(to: storeURL)
+            try data.write(to: persistentStoreURL)
         } catch {
             print("saveToPersistentStore error: \(error)")
             print(error.localizedDescription)
@@ -63,7 +71,7 @@ class JournalController {
     
     func loadFromPersistentStore() {
         do {
-            let data = try Data(contentsOf: storeURL)
+            let data = try Data(contentsOf: persistentStoreURL)
             journals = try JSONDecoder().decode([Journal].self, from: data)
         } catch {
             print("loadFromPersistentStore error: \(error)")
