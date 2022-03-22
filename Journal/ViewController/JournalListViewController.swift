@@ -52,7 +52,6 @@ class JournalListViewController: UIViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showEntryList" {
-            print("JournalListViewController - prepare(for:sender:)")
             guard
                 let indexPath = journalListTableView?.indexPathForSelectedRow,
                 let destination = segue.destination as? EntryListTableViewController

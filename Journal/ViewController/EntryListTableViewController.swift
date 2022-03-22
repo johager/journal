@@ -67,7 +67,6 @@ class EntryListTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "showDisplayEditEntry" {
-            print("EntryListTableViewController - prepare(for:sender:)")
             guard
                 let indexPath = tableView.indexPathForSelectedRow,
                 let journal = journal,
@@ -77,7 +76,6 @@ class EntryListTableViewController: UITableViewController {
             destination.entry = journal.entries[indexPath.row]
             
         } else if segue.identifier == "showAddEntry" {
-            print("EntryListTableViewController - prepare(for:sender:)")
             guard
                 let journal = journal,
                 let destination = segue.destination as? EntryDetailViewController
