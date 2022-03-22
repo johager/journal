@@ -20,6 +20,8 @@ class JournalListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         journalTitleTextField.addTarget(self, action: #selector(checkJournalTitleTextField), for: .editingChanged)
+        journalTitleTextField.delegate = self
+        journalTitleTextField.returnKeyType = .done
         createJournalButton.isEnabled = false
         journalListTableView.dataSource = self
         JournalController.shared.loadFromPersistentStore()
@@ -41,10 +43,15 @@ class JournalListViewController: UIViewController {
     }
     
     @IBAction func createJournalButtonTapped(_ sender: UIButton) {
+        createNewEntry()
+    }
+    
+    func createNewEntry() {
+        journalTitleTextField.resignFirstResponder()
         guard let journalTitle = journalTitleTextField?.text, !journalTitle.isEmpty else { return }
         JournalController.shared.createJournal(title: journalTitle)
         journalTitleTextField.text = ""
-        journalTitleTextField.resignFirstResponder()
+        createJournalButton.isEnabled = false
         journalListTableView.reloadData()
     }
     
@@ -57,7 +64,25 @@ class JournalListViewController: UIViewController {
                 let destination = segue.destination as? EntryListTableViewController
             else { return }
             destination.journal = JournalController.shared.journals[indexPath.row]
+            journalTitleTextField.resignFirstResponder()
         }
+    }
+}
+
+// MARK: - UITextFieldDelegate
+
+extension JournalListViewController: UITextFieldDelegate {
+    
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        journalTitleTextField.resignFirstResponder()
+        journalTitleTextField.text = ""
+        createJournalButton.isEnabled = false
+        return false
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        createNewEntry()
+        return true
     }
 }
 
