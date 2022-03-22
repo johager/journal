@@ -16,6 +16,9 @@
 		F8A0889327E91A6F00C22CB6 /* EntryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A0889227E91A6F00C22CB6 /* EntryController.swift */; };
 		F8A0889527E91C8500C22CB6 /* EntryListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A0889427E91C8500C22CB6 /* EntryListTableViewController.swift */; };
 		F8A0889727E9217200C22CB6 /* EntryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A0889627E9217200C22CB6 /* EntryDetailViewController.swift */; };
+		F8A0889F27EA336100C22CB6 /* Journal.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A0889E27EA336100C22CB6 /* Journal.swift */; };
+		F8A088A127EA33E100C22CB6 /* JournalController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A088A027EA33E100C22CB6 /* JournalController.swift */; };
+		F8A088A327EA39BA00C22CB6 /* JournalListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A088A227EA39BA00C22CB6 /* JournalListViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +33,9 @@
 		F8A0889227E91A6F00C22CB6 /* EntryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryController.swift; sourceTree = "<group>"; };
 		F8A0889427E91C8500C22CB6 /* EntryListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryListTableViewController.swift; sourceTree = "<group>"; };
 		F8A0889627E9217200C22CB6 /* EntryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryDetailViewController.swift; sourceTree = "<group>"; };
+		F8A0889E27EA336100C22CB6 /* Journal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Journal.swift; sourceTree = "<group>"; };
+		F8A088A027EA33E100C22CB6 /* JournalController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalController.swift; sourceTree = "<group>"; };
+		F8A088A227EA39BA00C22CB6 /* JournalListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalListViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				F8A0889027E919FF00C22CB6 /* Entry.swift */,
+				F8A0889E27EA336100C22CB6 /* Journal.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -103,6 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				F8A0889227E91A6F00C22CB6 /* EntryController.swift */,
+				F8A088A027EA33E100C22CB6 /* JournalController.swift */,
 			);
 			path = ModelController;
 			sourceTree = "<group>";
@@ -112,6 +120,7 @@
 			children = (
 				F8A0889627E9217200C22CB6 /* EntryDetailViewController.swift */,
 				F8A0889427E91C8500C22CB6 /* EntryListTableViewController.swift */,
+				F8A088A227EA39BA00C22CB6 /* JournalListViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -186,11 +195,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F8A088A327EA39BA00C22CB6 /* JournalListViewController.swift in Sources */,
 				F8A0889127E919FF00C22CB6 /* Entry.swift in Sources */,
+				F8A088A127EA33E100C22CB6 /* JournalController.swift in Sources */,
 				F8A0889527E91C8500C22CB6 /* EntryListTableViewController.swift in Sources */,
 				7EDA120F259D233600BBD350 /* AppDelegate.swift in Sources */,
 				F8A0889327E91A6F00C22CB6 /* EntryController.swift in Sources */,
 				F8A0889727E9217200C22CB6 /* EntryDetailViewController.swift in Sources */,
+				F8A0889F27EA336100C22CB6 /* Journal.swift in Sources */,
 				7EDA1211259D233600BBD350 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -339,6 +351,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = KMTDCPCY5V;
 				INFOPLIST_FILE = Journal/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -358,6 +371,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = KMTDCPCY5V;
 				INFOPLIST_FILE = Journal/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

@@ -9,48 +9,20 @@ import Foundation
 
 class EntryController {
     
-    static let shared = EntryController()
-    
-    var entries = [Entry]()
-    
-    private var storeURL: URL {
-        let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        let storeURL = urls[0].appendingPathComponent("Journal.json")
-        return storeURL
-    }
-    
     // MARK: - CRUD
     
-    func createEntryWith(title: String, body: String) {
-        entries.append(Entry(title: title, body: body))
-        saveToPersistentStore()
+    static func createEntry(withTitle title: String, andBody body: String, in journal: Journal) {
+        let newEntry = Entry(title: title, body: body)
+        JournalController.shared.add(entry: newEntry, to: journal)
     }
     
-    func delete(_ entry: Entry) {
-        guard let index = entries.firstIndex(of: entry) else { return }
-        entries.remove(at: index)
-        saveToPersistentStore()
+    static func update(entry: Entry, title: String, body:String) {
+        entry.title = title
+        entry.body = body
+        JournalController.shared.saveToPersistentStore()
     }
     
-    // MARK: - Persist
-    
-    func saveToPersistentStore() {
-        do {
-            let data = try JSONEncoder().encode(entries)
-            try data.write(to: storeURL)
-        } catch {
-            print("saveToPersistentStore error: \(error)")
-            print(error.localizedDescription)
-        }
-    }
-    
-    func loadFromPersistentStore() {
-        do {
-            let data = try Data(contentsOf: storeURL)
-            entries = try JSONDecoder().decode([Entry].self, from: data)
-        } catch {
-            print("loadFromPersistentStore error: \(error)")
-            print(error.localizedDescription)
-        }
+    static func delete(_ entry: Entry, from journal: Journal) {
+        JournalController.shared.remove(entry, from: journal)
     }
 }

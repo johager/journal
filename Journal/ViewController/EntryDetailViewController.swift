@@ -16,7 +16,8 @@ class EntryDetailViewController: UIViewController {
     
     // MARK: - Properties
     
-    var entry: Entry!
+    var journal: Journal?
+    var entry: Entry?
     
     // MARK: - Lifecycle
     
@@ -37,6 +38,7 @@ class EntryDetailViewController: UIViewController {
     
     @IBAction func saveButtonTapped(_ sender: Any) {
         guard
+            let journal = journal,
             let titleText = titleTextField.text,
             let bodyText = bodyTextView.text,
             !titleText.isEmpty,
@@ -44,10 +46,9 @@ class EntryDetailViewController: UIViewController {
         else { return}
         
         if entry == nil {
-            EntryController.shared.createEntryWith(title: titleText, body: bodyText)
+            EntryController.createEntry(withTitle: titleText, andBody: bodyText, in: journal)
         } else {
-            // TODO: Add Update method
-            print("An update method will be created tomorrow")
+            EntryController.update(entry: entry!, title: titleText, body: bodyText)
         }
         navigationController?.popViewController(animated: true)
     }
@@ -56,15 +57,4 @@ class EntryDetailViewController: UIViewController {
         titleTextField.text = ""
         bodyTextView.text = ""
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
