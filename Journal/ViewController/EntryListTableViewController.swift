@@ -57,8 +57,7 @@ class EntryListTableViewController: UITableViewController {
         if editingStyle == .delete {
             guard let journal = journal else { return }
             
-            let entry = journal.entries[indexPath.row]
-            JournalController.shared.remove(entry, from: journal)
+            JournalController.shared.removeEntry(from: journal, atIndex: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }

@@ -88,8 +88,7 @@ extension JournalListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let journal = JournalController.shared.journals[indexPath.row]
-            JournalController.shared.delete(journal)
+            JournalController.shared.deleteJournal(atIndex: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }

@@ -17,9 +17,3 @@ class Journal: Codable {
         self.entries = entries
     }
 }
-
-extension Journal: Equatable {
-    static func ==(lhs: Journal, rhs: Journal) -> Bool {
-        return lhs.title == rhs.title && lhs.entries == rhs.entries
-    }
-}

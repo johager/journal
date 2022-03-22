@@ -31,8 +31,4 @@ class EntryController {
             JournalController.shared.saveToPersistentStore()
         }
     }
-    
-    static func delete(_ entry: Entry, from journal: Journal) {
-        JournalController.shared.remove(entry, from: journal)
-    }
 }

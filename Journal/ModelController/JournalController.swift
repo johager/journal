@@ -27,27 +27,21 @@ class JournalController {
         saveToPersistentStore()
     }
     
-    func delete(_ journal: Journal) {
-        guard let index = journals.firstIndex(of: journal) else { return }
+    func deleteJournal(atIndex index: Int) {
+        guard index > -1, index < journals.count else { return }
         journals.remove(at: index)
         saveToPersistentStore()
     }
     
     func add(entry: Entry, to journal: Journal) {
-        guard let journalIndex = journals.firstIndex(of: journal) else { return }
-        journals[journalIndex].entries.append(entry)
-        sortJournal(journals[journalIndex])
+        journal.entries.append(entry)
+        sortJournal(journal)
         saveToPersistentStore()
     }
     
-    func remove(_ entry: Entry, from journal: Journal) {
-        guard let journalIndex = journals.firstIndex(of: journal) else { return }
-        
-        var entries = journals[journalIndex].entries
-        
-        guard let entryIndex = entries.firstIndex(of: entry) else { return }
-        
-        entries.remove(at: entryIndex)
+    func removeEntry(from journal: Journal, atIndex index: Int) {
+        guard index > -1, index < journal.entries.count else { return }
+        journal.entries.remove(at: index)
         saveToPersistentStore()
     }
     
